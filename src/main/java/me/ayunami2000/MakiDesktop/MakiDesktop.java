@@ -168,7 +168,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
                     }else{
                         alwaysMoveMouse=true;
                         controller = (Player) sender;
-                        sender.sendMessage("You are now controlling!\n§lTo use:\n - Right click the screen to perform an action\n - Slots 1-3: Left, Middle, and Right mouse buttons (single clicks)\n - Slots 4-6: Left, Middle, and Right mouse buttons (toggle pressed state)\n - Slot 7: Toggle always move mouse\n - Slot 8: Move mouse to current position (even if always move mouse is disabled)\n - Slot 9: Do nothing\n - /makikey: Press a key\n - /makitype: Type a string of text.");
+                        sender.sendMessage("You are now controlling!\n§lTo use:\n - Right click the screen to perform an action\n - Slots 1-3: Left, Middle, and Right mouse buttons (single clicks)\n - Slots 4-6: Left, Middle, and Right mouse buttons (toggle pressed state)\n - Slot 7: Toggle always move mouse\n - Slot 8: Move mouse to current position (even if always move mouse is disabled)\n - Slot 9: Do nothing\n - /makikey: Press a key or multiple keys.\n - /makitype: Type a string of text.");
                     }
                 }
                 return true;
