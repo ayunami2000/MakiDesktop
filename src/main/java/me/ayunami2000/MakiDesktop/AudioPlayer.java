@@ -12,10 +12,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class AudioPlayer {
+public class AudioPlayer implements Runnable {
     private static Sound[] sounds=new Sound[]{Sound.BLOCK_NOTE_BLOCK_HARP,Sound.BLOCK_NOTE_BLOCK_BASEDRUM,Sound.BLOCK_NOTE_BLOCK_SNARE,Sound.BLOCK_NOTE_BLOCK_HAT,Sound.BLOCK_NOTE_BLOCK_BASS,Sound.BLOCK_NOTE_BLOCK_FLUTE,Sound.BLOCK_NOTE_BLOCK_BELL,Sound.BLOCK_NOTE_BLOCK_GUITAR,Sound.BLOCK_NOTE_BLOCK_CHIME,Sound.BLOCK_NOTE_BLOCK_XYLOPHONE,Sound.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE,Sound.BLOCK_NOTE_BLOCK_COW_BELL,Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO,Sound.BLOCK_NOTE_BLOCK_BIT,Sound.BLOCK_NOTE_BLOCK_BANJO,Sound.BLOCK_NOTE_BLOCK_PLING};
     public static boolean enabled=false;
-    public static void getAudio(){
+    public void run(){
         if(MakiDesktop.audioUrl.equals("")){
             Thread.currentThread().stop();
             return;
@@ -49,7 +49,10 @@ public class AudioPlayer {
         }
         Thread.currentThread().stop();
     }
-    public static void stopAudio(){
+    public void stopIt(){
         enabled=false;
+    }
+    public boolean isEnabled(){
+        return enabled;
     }
 }

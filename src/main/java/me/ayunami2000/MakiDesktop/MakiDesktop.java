@@ -44,6 +44,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
     public static Player controller = null;
     public static boolean alwaysMoveMouse = true;
 
+    public static AudioPlayer audioPlayer = new AudioPlayer();
     public static String audioUrl = "";
 
     @Override
