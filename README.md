@@ -37,3 +37,4 @@ You can contact me on **Discord** at `ayunami2000#5250` or on **Twitter** at `@n
 - [DNx5](https://github.com/dnx5) for synchronizing the maps, optimizing the code, implementing sierra2 dithering. literally do all the hard work for me
 - [EzMediaCore](https://github.com/MinecraftMediaLibrary/EzMediaCore) for the dither algorithm
 - [MakiScreen](https://github.com/makitsune/MakiScreen)
+- [Vernacular VNC](https://github.com/shinyhut/vernacular-vnc)
