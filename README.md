@@ -36,5 +36,4 @@ You can contact me on **Discord** at `ayunami2000#5250` or on **Twitter** at `@n
 - [CodedRed](https://www.youtube.com/channel/UC_kPUW3XPrCCRT9a4Pnf1Tg) For ImageManager class
 - [DNx5](https://github.com/dnx5) for synchronizing the maps, optimizing the code, implementing sierra2 dithering. literally do all the hard work for me
 - [EzMediaCore](https://github.com/MinecraftMediaLibrary/EzMediaCore) for the dither algorithm
-- [MJPG](https://github.com/Wildcats3540/Dashboard/tree/master/Dashboard/src/com/wildcatrobotics/dashboard/MJPG)
 - [MakiScreen](https://github.com/makitsune/MakiScreen)
