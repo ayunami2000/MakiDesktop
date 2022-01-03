@@ -1,0 +1,13 @@
+# Set your OBS output/mjpeg resolution according to this option below.
+# 1 = 256x128 = 2 maps
+# 2 = 512x256 = 8 maps
+# 3 = 1024x512 = 32 maps
+size: 2
+# Set this to your vnc IP:PORT.
+ip: 127.0.0.1:5900
+# Time to wait when connection is broken, in milliseconds.
+delay: 10000
+# Location and rotation specifying where the top left corner of the screen is located.
+loc: 0,0,0,180
+# Location world.
+locworld: world

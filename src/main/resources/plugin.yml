@@ -1,0 +1,15 @@
+name: MakiDesktop
+description: Control a VNC server from Maps!
+version: 1.0.0
+api-version: 1.17
+main: me.ayunami2000.MakiDesktop.MakiDesktop
+commands:
+  makid:
+    description: Manage MakiDesktop
+    usage: /<command>
+  makitype:
+    description: Type on MakiDesktop
+    usage: /<command>
+  makikey:
+    description: Press key on MakiDesktop
+    usage: /<command>
