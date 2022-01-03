@@ -38,5 +38,3 @@ You can contact me on **Discord** at `ayunami2000#5250` or on **Twitter** at `@n
 - [EzMediaCore](https://github.com/MinecraftMediaLibrary/EzMediaCore) for the dither algorithm
 - [MakiScreen](https://github.com/makitsune/MakiScreen) Lagless map rendering
 - [Vernacular VNC](https://github.com/shinyhut/vernacular-vnc) VNC support
-- [PolyphonicPitchDetection](https://github.com/tjrantal/PolyphonicPitchDetection) Audio to Midi
-- [SongPlayer](https://github.com/hhhzzzsss/SongPlayer) Midi to Noteblocks
