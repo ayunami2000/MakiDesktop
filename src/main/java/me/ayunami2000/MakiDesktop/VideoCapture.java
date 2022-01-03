@@ -80,6 +80,7 @@ class VideoCaptureVnc extends Thread {
                         port = m.group(2);
                 client.stop();
                 client.start(ip, Integer.parseInt(port));
+                MakiDesktop.pitchDetection.beginPitchDetection();
                 while (!MakiDesktop.paused) {
                     if(MakiDesktop.controller!=null&&MakiDesktop.alwaysMoveMouse) {
                         Block tgtbl = MakiDesktop.controller.getTargetBlock(5);
@@ -90,6 +91,7 @@ class VideoCaptureVnc extends Thread {
                     } catch (InterruptedException e) {
                     }
                 }
+                MakiDesktop.pitchDetection.endPitchDetection();
                 client.stop();
             }
             do {
