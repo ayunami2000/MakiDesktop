@@ -44,8 +44,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
     public static Player controller = null;
     public static boolean alwaysMoveMouse = true;
 
-    public static PitchDetection pitchDetection = new PitchDetection();
-    public static String audioDevice = "";
+    public static String audioUrl = "";
 
     @Override
     public void onEnable() {
@@ -160,7 +159,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
             return true;
         }else if (command.getName().equals("makid")) {
             if(args.length==0){
-                sender.sendMessage("Usage: /makid [audio|ctrl|give|clear|toggle|loc|size|ip|delay]\n - audio: Select audio device to use for audio (VB-CABLE is recommended for this).\n - ctrl: Take control of MakiDesktop.\n - give: Generates new maps and gives them to you.\n - clear: Clears all map data.\n - toggle: Toggles map playback.\n - loc: Sets the top left corner of the screen to the block you are looking at.\n - size: Sets or gets the current size value.\n - ip: Sets or gets the current VNC ip:port.\n - delay: Sets or gets the current delay value.");
+                sender.sendMessage("Usage: /makid [audio|ctrl|give|clear|toggle|loc|size|ip|delay]\n - audio: Set audio URL for audio support.\n - ctrl: Take control of MakiDesktop.\n - give: Generates new maps and gives them to you.\n - clear: Clears all map data.\n - toggle: Toggles map playback.\n - loc: Sets the top left corner of the screen to the block you are looking at.\n - size: Sets or gets the current size value.\n - ip: Sets or gets the current VNC ip:port.\n - delay: Sets or gets the current delay value.");
                 return true;
             }
             if(args[0].equals("ctrl")){
@@ -187,16 +186,10 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
             switch(args[0]){
                 case "audio":
                     if(args.length==1){
-                        audioDevice="";
-                        sender.sendMessage("Audio Devices:");
-                        int ind=0;
-                        for (Mixer.Info mixerInfo : AudioSystem.getMixerInfo()) {
-                            sender.sendMessage(ind+"~ "+mixerInfo.getName());
-                            ind++;
-                        }
-                        if(ind==0)sender.sendMessage("(there were no audio devices...)");
+                        audioUrl="";
+                        sender.sendMessage("Disabled audio!");
                     }else{
-                        audioDevice=String.join(" ",Arrays.copyOfRange(args,1,args.length));
+                        audioUrl=String.join(" ",Arrays.copyOfRange(args,1,args.length));
                     }
                     break;
                 case "give":
