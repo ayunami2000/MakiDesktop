@@ -60,6 +60,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
         pm.registerEvents(this, this);
         pm.registerEvents(new ScreenClickEvent(), this);
         getServer().getPluginCommand("makikey").setTabCompleter(new TabCompletion());
+        getServer().getPluginCommand("makipress").setTabCompleter(new TabCompletion());
 
         double[] locarr=ConfigFile.getLocArr();
         loc=new Location(getServer().getWorld(ConfigFile.getLocWorld()),locarr[0],locarr[1],locarr[2]);

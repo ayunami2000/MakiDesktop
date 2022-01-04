@@ -902,9 +902,10 @@ public class TabCompletion implements TabCompleter {
     }
     @Override
     public List<String> onTabComplete (CommandSender sender, Command cmd, String label, String[] args){
-        if(cmd.getName().equals("makikey")){
+        if(cmd.getName().equals("makikey")||cmd.getName().equals("makipress")){
             List<String> suggs = new ArrayList<>(completions);
             if(args.length!=0){
+                if(cmd.getName().equals("makipress")&&args.length==1)return null;
                 String lastThing=args[args.length-1].toLowerCase();
                 suggs.removeIf(s -> !s.toLowerCase().startsWith(lastThing));
             }
