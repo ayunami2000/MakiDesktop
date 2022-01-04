@@ -15,11 +15,19 @@ import java.net.URL;
 public class AudioPlayer implements Runnable {
     private static Sound[] sounds=new Sound[]{Sound.BLOCK_NOTE_BLOCK_HARP,Sound.BLOCK_NOTE_BLOCK_BASEDRUM,Sound.BLOCK_NOTE_BLOCK_SNARE,Sound.BLOCK_NOTE_BLOCK_HAT,Sound.BLOCK_NOTE_BLOCK_BASS,Sound.BLOCK_NOTE_BLOCK_FLUTE,Sound.BLOCK_NOTE_BLOCK_BELL,Sound.BLOCK_NOTE_BLOCK_GUITAR,Sound.BLOCK_NOTE_BLOCK_CHIME,Sound.BLOCK_NOTE_BLOCK_XYLOPHONE,Sound.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE,Sound.BLOCK_NOTE_BLOCK_COW_BELL,Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO,Sound.BLOCK_NOTE_BLOCK_BIT,Sound.BLOCK_NOTE_BLOCK_BANJO,Sound.BLOCK_NOTE_BLOCK_PLING};
     private boolean enabled=false;
+    private int requests=0;
     public void run(){
         if(MakiDesktop.audioUrl.equals("")){
             Thread.currentThread().stop();
             return;
         }
+        if(requests>=10){
+            //too many requests, pausing!
+            MakiDesktop.paused=true;
+            requests=0;
+            return;
+        }
+        requests++;
         enabled=true;
         String currUrl=MakiDesktop.audioUrl;
         try {
@@ -31,12 +39,9 @@ public class AudioPlayer implements Runnable {
             World scrWorld= Bukkit.getWorld(ConfigFile.getLocWorld());
             Location scrLoc=new Location(scrWorld,(MakiDesktop.loc.getX()+MakiDesktop.locEnd.getX())/2.0,(MakiDesktop.loc.getY()+MakiDesktop.locEnd.getY())/2.0,(MakiDesktop.loc.getZ()+MakiDesktop.locEnd.getZ())/2.0);
             while (currUrl.equals(MakiDesktop.audioUrl)&&enabled&&!MakiDesktop.paused&&(line = reader.readLine()) != null) {
-                String[] audpartss=line.trim().split(";");
-                for (String audpart : audpartss) {
-                    String[] audparts=audpart.split(",");
-                    if(audparts.length==3) {
-                        scrWorld.playSound(scrLoc, sounds[Integer.parseInt(audparts[0])], Float.parseFloat(audparts[1]), Float.parseFloat(audparts[2]));
-                    }
+                String[] audparts=line.split(",");
+                if(audparts.length==3) {
+                    scrWorld.playSound(scrLoc, sounds[Integer.parseInt(audparts[0])], Float.parseFloat(audparts[1]), Float.parseFloat(audparts[2]));
                 }
             }
             urlConnection.disconnect();
@@ -51,5 +56,8 @@ public class AudioPlayer implements Runnable {
     }
     public boolean isEnabled(){
         return enabled;
+    }
+    public void resetReqs(){
+        requests=0;
     }
 }

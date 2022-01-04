@@ -113,6 +113,9 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
         FramePacketSender framePacketSender =
             new FramePacketSender(this, frameProcessorTask.getFrameBuffers());
         framePacketSender.runTaskTimerAsynchronously(this, 0, 1);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, (Runnable) () -> {
+            audioPlayer.resetReqs();
+        }, 0, 100);
     }
 
     @Override
