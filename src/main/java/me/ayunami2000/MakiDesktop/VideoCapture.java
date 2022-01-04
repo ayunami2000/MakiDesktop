@@ -82,9 +82,13 @@ class VideoCaptureVnc extends Thread {
                 client.start(ip, Integer.parseInt(port));
                 (new Thread(MakiDesktop.audioPlayer)).start();
                 while (!MakiDesktop.paused) {
-                    if(MakiDesktop.controller!=null&&MakiDesktop.alwaysMoveMouse) {
-                        Block tgtbl = MakiDesktop.controller.getTargetBlock(5);
-                        if (tgtbl != null) ClickOnScreen.clickedOnBlock(tgtbl, MakiDesktop.controller, false);
+                    if(MakiDesktop.controller!=null){
+                        if(!MakiDesktop.controller.isOnline()){
+                            MakiDesktop.controller=null;
+                        }else if(MakiDesktop.alwaysMoveMouse) {
+                            Block tgtbl = MakiDesktop.controller.getTargetBlock(5);
+                            if (tgtbl != null) ClickOnScreen.clickedOnBlock(tgtbl, MakiDesktop.controller, false);
+                        }
                     }
                     if(!MakiDesktop.audioPlayer.isEnabled())(new Thread(MakiDesktop.audioPlayer)).start();
                     try {

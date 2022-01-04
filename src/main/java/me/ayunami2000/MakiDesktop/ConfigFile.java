@@ -15,6 +15,7 @@ public class ConfigFile extends BukkitRunnable {
     private static String locworld=Bukkit.getWorlds().get(0).getName();
     private static double[] locarr=new double[]{0,0,0,180};
     private static String ipport="127.0.0.1:5900";
+    private static String audurl="";
     private static int mapSize=8;
     private static int mapWidth=4;
     private static int VCWidth=128*4;
@@ -49,6 +50,11 @@ public class ConfigFile extends BukkitRunnable {
             ipport=config.getString("ip");
         } else {
             config.addDefault("ip", "127.0.0.1:5900");
+        }
+        if (config.contains("audio")) {
+            audurl=config.getString("audio");
+        } else {
+            config.addDefault("audio", "");
         }
         if (config.contains("loc")&&!config.getString("loc").isEmpty()) {
             ConfigLoc(config.getString("loc"));
@@ -131,6 +137,10 @@ public class ConfigFile extends BukkitRunnable {
         return ipport;
     }
 
+    public static String getAudio() {
+        return audurl;
+    }
+
     public static int getDelay() {
         return delay;
     }
@@ -147,6 +157,9 @@ public class ConfigFile extends BukkitRunnable {
                 break;
             case "ip":
                 ipport=(String)val;
+                break;
+            case "audio":
+                audurl=(String)val;
                 break;
             case "delay":
                 delay=(int)val;

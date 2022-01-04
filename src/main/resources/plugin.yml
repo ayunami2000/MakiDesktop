@@ -4,7 +4,7 @@ version: 1.0.0
 api-version: 1.17
 main: me.ayunami2000.MakiDesktop.MakiDesktop
 commands:
-  makid:
+  maki:
     description: Manage MakiDesktop
     usage: /<command>
   makitype:

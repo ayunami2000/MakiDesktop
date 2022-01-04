@@ -7,6 +7,8 @@ size: 2
 ip: 127.0.0.1:5900
 # Time to wait when connection is broken, in milliseconds.
 delay: 10000
+# Set this to your audio URL. Use https://github.com/ayunami2000/ayunAudioStreamer to stream audio.
+audio: ''
 # Location and rotation specifying where the top left corner of the screen is located.
 loc: 0,0,0,180
 # Location world.

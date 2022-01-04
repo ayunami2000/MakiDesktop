@@ -16,15 +16,15 @@
 
 - Download [MakiDesktop](https://github.com/ayunami2000/MakiDesktop/actions) jar and place in Spigot 1.13+ server plugins
 - Run **Paper** server
-- Change the ***size*** setting in config.yml or using /makid to match your output resolution
-- Change the ***ip*** setting in config.yml or using /makid to match your VNC IP:PORT. Run `/makid toggle` to update the IP:PORT internally.
-- Run **Paper** server and Type `/makid give` in Minecraft to get the maps
-- Face the top left corner of the maps area, and run `/makid loc` to set the screen location.
-- Type `/makid ctrl` to start controlling!
+- Change the ***size*** setting in config.yml or using /maki to match your output resolution
+- Change the ***ip*** setting in config.yml or using /maki to match your VNC IP:PORT. Run `/maki toggle` to update the IP:PORT internally.
+- Run **Paper** server and Type `/maki give` in Minecraft to get the maps
+- Face the top left corner of the maps area, and run `/maki loc` to set the screen location.
+- Type `/maki ctrl` to start controlling!
 
 if your performance went doodoo, you could try removing both data.yml in the MakiScreen folder and removing anything in the data folder in the world folder.
 
-you can also try `/makid clear` out and then restart the server. This simply clears data.yml
+you can also try `/maki clear` out and then restart the server. This simply clears data.yml
 
 ## Help me
 

@@ -17,7 +17,7 @@ public class AudioPlayer implements Runnable {
     private boolean enabled=false;
     private int requests=0;
     public void run(){
-        if(MakiDesktop.audioUrl.equals("")){
+        if(ConfigFile.getAudio().equals("")){
             Thread.currentThread().stop();
             return;
         }
@@ -29,7 +29,7 @@ public class AudioPlayer implements Runnable {
         }
         requests++;
         enabled=true;
-        String currUrl=MakiDesktop.audioUrl;
+        String currUrl=ConfigFile.getAudio();
         try {
             URL url = new URL(currUrl);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -38,7 +38,7 @@ public class AudioPlayer implements Runnable {
             String line="";
             World scrWorld= Bukkit.getWorld(ConfigFile.getLocWorld());
             Location scrLoc=new Location(scrWorld,(MakiDesktop.loc.getX()+MakiDesktop.locEnd.getX())/2.0,(MakiDesktop.loc.getY()+MakiDesktop.locEnd.getY())/2.0,(MakiDesktop.loc.getZ()+MakiDesktop.locEnd.getZ())/2.0);
-            while (currUrl.equals(MakiDesktop.audioUrl)&&enabled&&!MakiDesktop.paused&&(line = reader.readLine()) != null) {
+            while (currUrl.equals(ConfigFile.getAudio())&&enabled&&!MakiDesktop.paused&&(line = reader.readLine()) != null) {
                 String[] audparts=line.split(",");
                 if(audparts.length==3) {
                     scrWorld.playSound(scrLoc, sounds[Integer.parseInt(audparts[0])], Float.parseFloat(audparts[1]), Float.parseFloat(audparts[2]));

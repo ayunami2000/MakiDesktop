@@ -45,7 +45,6 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
     public static boolean alwaysMoveMouse = true;
 
     public static AudioPlayer audioPlayer = new AudioPlayer();
-    public static String audioUrl = "";
 
     @Override
     public void onEnable() {
@@ -161,9 +160,9 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
                 }
             }
             return true;
-        }else if (command.getName().equals("makid")) {
+        }else if (command.getName().equals("maki")) {
             if(args.length==0){
-                sender.sendMessage("Usage: /makid [audio|ctrl|give|clear|toggle|loc|size|ip|delay]\n - audio: Set audio URL for audio support.\n - ctrl: Take control of MakiDesktop.\n - give: Generates new maps and gives them to you.\n - clear: Clears all map data.\n - toggle: Toggles map playback.\n - loc: Sets the top left corner of the screen to the block you are looking at.\n - size: Sets or gets the current size value.\n - ip: Sets or gets the current VNC ip:port.\n - delay: Sets or gets the current delay value.");
+                sender.sendMessage("Usage: /maki [audio|ctrl|give|clear|toggle|loc|size|ip|delay]\n - audio: Set audio URL for audio support.\n - ctrl: Take control of MakiDesktop.\n - give: Generates new maps and gives them to you.\n - clear: Clears all map data.\n - toggle: Toggles map playback.\n - loc: Sets the top left corner of the screen to the block you are looking at.\n - size: Sets or gets the current size value.\n - ip: Sets or gets the current VNC ip:port.\n - delay: Sets or gets the current delay value.");
                 return true;
             }
             if(args[0].equals("ctrl")){
@@ -190,10 +189,11 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
             switch(args[0]){
                 case "audio":
                     if(args.length==1){
-                        audioUrl="";
+                        ConfigFile.setVal("audio","");
                         sender.sendMessage("Disabled audio!");
                     }else{
-                        audioUrl=String.join(" ",Arrays.copyOfRange(args,1,args.length));
+                        ConfigFile.setVal("audio",args[1]);
+                        sender.sendMessage("Audio URL is now: "+args[1]);
                     }
                     break;
                 case "give":
@@ -233,7 +233,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
                     break;
                 case "toggle":
                     paused=!paused;
-                    sender.sendMessage("MakiScreen is now "+(paused?"":"un")+"paused.");
+                    sender.sendMessage("MakiDesktop is now "+(paused?"":"un")+"paused.");
                     break;
                 case "loc":
                     if(sender instanceof ConsoleCommandSender) {
