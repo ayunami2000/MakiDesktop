@@ -160,6 +160,29 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
                 }
             }
             return true;
+        }else if(command.getName().equals("makipress")){
+            if(paused){
+                sender.sendMessage("Error: MakiDesktop is currently paused!");
+                return true;
+            }
+            if(!(sender instanceof ConsoleCommandSender||sender.isOp()||(Player)sender==controller)){
+                sender.sendMessage("Error: You are not currently in control!");
+                return true;
+            }
+            if(args.length==0||args.length==1){
+                sender.sendMessage("Usage: /makipress <duration> <keyname>\n§lWarning: Case sensitive!");
+            }else{
+                try{
+                    int dur=Math.abs(Integer.parseInt(args[0]));
+                    String[] trimargs=Arrays.copyOfRange(args,1,args.length);
+                    for (String arg : trimargs) {
+                        holdKey(arg,dur);
+                    }
+                }catch(NumberFormatException e){
+                    sender.sendMessage("Error: Duration must be a valid integer in milliseconds!");
+                }
+            }
+            return true;
         }else if (command.getName().equals("maki")) {
             if(args.length==0){
                 sender.sendMessage("Usage: /maki [login|audio|ctrl|give|clear|toggle|loc|size|ip|delay]\n - login: Sets the VNC password or username:password (passwords with \":\" in them: prefix with \":\", usernames with \":\"...well...lmao trolled xd).\n - audio: Set audio URL for audio support.\n - ctrl: Take control of MakiDesktop.\n - give: Generates new maps and gives them to you.\n - clear: Clears all map data.\n - toggle: Toggles map playback.\n - loc: Sets the top left corner of the screen to the block you are looking at.\n - size: Sets or gets the current size value.\n - ip: Sets or gets the current VNC ip:port.\n - delay: Sets or gets the current delay value.");
@@ -176,7 +199,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
                     }else{
                         alwaysMoveMouse=true;
                         controller = (Player) sender;
-                        sender.sendMessage("You are now controlling!\n§lTo use:\n - Right click the screen to perform an action\n - Slots 1-3: Left, Middle, and Right mouse buttons (single clicks)\n - Slots 4-6: Left, Middle, and Right mouse buttons (toggle pressed state)\n - Slot 7: Toggle always move mouse\n - Slot 8: Move mouse to current position (even if always move mouse is disabled)\n - Slot 9: Do nothing\n - /makikey: Press a key or multiple keys.\n - /makitype: Type a string of text.");
+                        sender.sendMessage("You are now controlling!\n§lTo use:\n - Right click the screen to perform an action\n - Slots 1-3: Left, Middle, and Right mouse buttons (single clicks)\n - Slots 4-6: Left, Middle, and Right mouse buttons (toggle pressed state)\n - Slot 7: Toggle always move mouse\n - Slot 8: Move mouse to current position (even if always move mouse is disabled)\n - Slot 9: Do nothing\n - /makikey: Press a key or multiple keys.\n - /makipress: Hold a key or multiple keys for the specified amount of milliseconds.\n - /makitype: Type a string of text.");
                     }
                 }
                 return true;
@@ -332,6 +355,10 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
 
     public void pressKey(String key){
         videoCapture.pressKey(key);
+    }
+
+    public void holdKey(String key,int time){
+        videoCapture.holdKey(key,time);
     }
 
     public void typeText(String text){

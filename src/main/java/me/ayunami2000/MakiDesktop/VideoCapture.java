@@ -1028,6 +1028,18 @@ class VideoCaptureVnc extends Thread {
         client.type(keynum);
     }
 
+    public void holdKey(String key,int time){
+        int keynum=keyNameToKeySym(key);
+        if(keynum==-1)return;
+        client.updateKey(keynum,true);
+        (new Thread(()->{
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {}
+            client.updateKey(keynum,false);
+        })).start();
+    }
+
     public void typeText(String text){
         client.type(text);
     }
@@ -1067,6 +1079,10 @@ public class VideoCapture extends Thread {
 
     public void pressKey(String key){
         videoCaptureVnc.pressKey(key);
+    }
+
+    public void holdKey(String key,int time){
+        videoCaptureVnc.holdKey(key,time);
     }
 
     public void typeText(String text){

@@ -13,3 +13,6 @@ commands:
   makikey:
     description: Press key on MakiDesktop
     usage: /<command>
+  makipress:
+    description: Press key on MakiDesktop
+    usage: /<command>
