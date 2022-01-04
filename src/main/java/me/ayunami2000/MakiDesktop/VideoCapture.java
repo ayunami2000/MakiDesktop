@@ -52,6 +52,9 @@ class VideoCaptureVnc extends Thread {
 
         //config.setTargetFramesPerSecond(20);
 
+        config.setUsernameSupplier(() -> MakiDesktop.getUserPass()[0]);
+        config.setPasswordSupplier(() -> MakiDesktop.getUserPass()[1]);
+
         config.setScreenUpdateListener(image -> {
             if (MakiDesktop.paused||rendering > 5) return;//dont get too behind
             rendering++;

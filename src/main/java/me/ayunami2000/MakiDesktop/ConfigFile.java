@@ -16,6 +16,7 @@ public class ConfigFile extends BukkitRunnable {
     private static double[] locarr=new double[]{0,0,0,180};
     private static String ipport="127.0.0.1:5900";
     private static String audurl="";
+    private static String login="";
     private static int mapSize=8;
     private static int mapWidth=4;
     private static int VCWidth=128*4;
@@ -65,6 +66,11 @@ public class ConfigFile extends BukkitRunnable {
             locworld=config.getString("locworld");
         } else {
             config.addDefault("locworld",Bukkit.getWorlds().get(0).getName());
+        }
+        if (config.contains("login")) {
+            login=config.getString("login");
+        } else {
+            config.addDefault("login","");
         }
     }
 
@@ -133,6 +139,10 @@ public class ConfigFile extends BukkitRunnable {
         return locworld;
     }
 
+    public static String getLogin() {
+        return login;
+    }
+
     public static String getIp() {
         return ipport;
     }
@@ -175,6 +185,9 @@ public class ConfigFile extends BukkitRunnable {
                 break;
             case "locworld":
                 locworld=(String)val;
+                break;
+            case "login":
+                login=(String)val;
                 break;
             default:
         }

@@ -9,6 +9,9 @@ ip: 127.0.0.1:5900
 delay: 10000
 # Set this to your audio URL. Use https://github.com/ayunami2000/ayunAudioStreamer to stream audio.
 audio: ''
+# Set this to the VNC's username:password combo, or just to the password.
+# If there is no username, and the password contains a ":", prefix it with a :
+login: ''
 # Location and rotation specifying where the top left corner of the screen is located.
 loc: 0,0,0,180
 # Location world.

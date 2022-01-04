@@ -162,7 +162,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
             return true;
         }else if (command.getName().equals("maki")) {
             if(args.length==0){
-                sender.sendMessage("Usage: /maki [audio|ctrl|give|clear|toggle|loc|size|ip|delay]\n - audio: Set audio URL for audio support.\n - ctrl: Take control of MakiDesktop.\n - give: Generates new maps and gives them to you.\n - clear: Clears all map data.\n - toggle: Toggles map playback.\n - loc: Sets the top left corner of the screen to the block you are looking at.\n - size: Sets or gets the current size value.\n - ip: Sets or gets the current VNC ip:port.\n - delay: Sets or gets the current delay value.");
+                sender.sendMessage("Usage: /maki [login|audio|ctrl|give|clear|toggle|loc|size|ip|delay]\n - login: Sets the VNC password or username:password (passwords with \":\" in them: prefix with \":\", usernames with \":\"...well...lmao trolled xd).\n - audio: Set audio URL for audio support.\n - ctrl: Take control of MakiDesktop.\n - give: Generates new maps and gives them to you.\n - clear: Clears all map data.\n - toggle: Toggles map playback.\n - loc: Sets the top left corner of the screen to the block you are looking at.\n - size: Sets or gets the current size value.\n - ip: Sets or gets the current VNC ip:port.\n - delay: Sets or gets the current delay value.");
                 return true;
             }
             if(args[0].equals("ctrl")){
@@ -187,6 +187,16 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
             }
 
             switch(args[0]){
+                case "login":
+                    if(args.length==1){
+                        ConfigFile.setVal("login","");
+                        sender.sendMessage("Turned off VNC authentication!");
+                    }else{
+                        String loginval=String.join("",Arrays.copyOfRange(args,1,args.length));
+                        ConfigFile.setVal("login",loginval);
+                        sender.sendMessage("VNC username:password is now: "+loginval);
+                    }
+                    break;
                 case "audio":
                     if(args.length==1){
                         ConfigFile.setVal("audio","");
@@ -326,5 +336,18 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
 
     public void typeText(String text){
         videoCapture.typeText(text);
+    }
+
+    public static String[] getUserPass(){
+        String[] res=new String[]{"",""};
+        String val=ConfigFile.getLogin();
+        if(!val.contains(":")){
+            if(val.equals("")){
+                return res;
+            }
+            res[1]=val;
+            return res;
+        }
+        return val.split(":",2);
     }
 }
