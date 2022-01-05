@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,8 @@ class VideoCaptureVnc extends Thread {
     private static int screenWidth=0;
     private static int screenHeight=0;
     private static int rendering=0;
+    private static int cachex=0;
+    private static int cachey=0;
 
     public static BufferedImage toBufferedImage(Image img)
     {
@@ -59,8 +62,14 @@ class VideoCaptureVnc extends Thread {
             if (MakiDesktop.paused||rendering > 5) return;//dont get too behind
             rendering++;
 
+            int oldWidth=screenWidth;
+            int oldHeight=screenHeight;
+
             screenWidth=image.getWidth(null);
             screenHeight=image.getHeight(null);
+
+            if(screenWidth!=oldWidth)cachex=screenWidth/2;
+            if(screenHeight!=oldHeight)cachey=screenHeight/2;
 
             onFrame(toBufferedImage(image));
 
@@ -118,6 +127,14 @@ class VideoCaptureVnc extends Thread {
     }
 
     public void clickMouse(double x,double y,int doClick,boolean drag){
+        if(x<0&&y<0){
+            cachex+=x+32767;
+            cachey+=y+32767;
+            x=cachex;
+            y=cachey;
+        }
+        x=Math.max(0,Math.min(screenWidth,x));
+        y=Math.max(0,Math.min(screenHeight,y));
         client.moveMouse((int) (x*screenWidth), (int) (y*screenHeight));
         if(doClick!=0){
             if(drag){
@@ -1028,6 +1045,12 @@ class VideoCaptureVnc extends Thread {
         client.type(keynum);
     }
 
+    public void pressKey(String key,boolean state){
+        int keynum=keyNameToKeySym(key);
+        if(keynum==-1)return;
+        client.updateKey(keynum,state);
+    }
+
     public void holdKey(String key,int time){
         int keynum=keyNameToKeySym(key);
         if(keynum==-1)return;
@@ -1038,6 +1061,27 @@ class VideoCaptureVnc extends Thread {
             } catch (InterruptedException e) {}
             client.updateKey(keynum,false);
         })).start();
+    }
+
+    HashMap<Integer,Thread> keysHeld=new HashMap<>();
+
+    public void holdKey(String key){
+        int keynum=keyNameToKeySym(key);
+        if(keynum==-1)return;
+        if(keysHeld.containsKey(keynum)){
+            ((Thread)keysHeld.get(keynum)).stop();
+        }else{
+            client.updateKey(keynum,true);
+        }
+        Thread thr=new Thread(()->{
+            try {
+                Thread.sleep(100);//2 ticks to be safe
+            } catch (InterruptedException e) {}
+            client.updateKey(keynum,false);
+            keysHeld.remove(keynum);
+        });
+        thr.start();
+        keysHeld.put(keynum,thr);
     }
 
     public void typeText(String text){
@@ -1081,8 +1125,16 @@ public class VideoCapture extends Thread {
         videoCaptureVnc.pressKey(key);
     }
 
+    public void pressKey(String key,boolean state){
+        videoCaptureVnc.pressKey(key,state);
+    }
+
     public void holdKey(String key,int time){
         videoCaptureVnc.holdKey(key,time);
+    }
+
+    public void holdKey(String key){
+        videoCaptureVnc.holdKey(key);
     }
 
     public void typeText(String text){

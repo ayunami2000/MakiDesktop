@@ -7,12 +7,3 @@ commands:
   maki:
     description: Manage MakiDesktop
     usage: /<command>
-  makitype:
-    description: Type on MakiDesktop
-    usage: /<command>
-  makikey:
-    description: Press key on MakiDesktop
-    usage: /<command>
-  makipress:
-    description: Press key on MakiDesktop
-    usage: /<command>

@@ -17,10 +17,11 @@ public class ScreenClickEvent implements Listener {
         if(MakiDesktop.paused||MakiDesktop.loc==null||MakiDesktop.locEnd==null)return;
         Player player = event.getPlayer();
         if(player!=MakiDesktop.controller&&!player.isOp())return;
+        if(MakiDesktop.directControl&&player==MakiDesktop.controller)return;
         Block block = player.getTargetBlock(5);
         //EntityType entityType = event.getPlayer().getTargetEntity(5).getType();
         //if(entityType==EntityType.ITEM_FRAME||entityType==EntityType.GLOW_ITEM_FRAME) {
-            if (ClickOnScreen.clickedOnBlock(block, player,true)) event.setCancelled(true);
+            if (ClickOnScreen.clickedOnBlock(block, player,true)) {}//event.setCancelled(true);
         //}
     }
     @EventHandler(priority = EventPriority.MONITOR)
@@ -32,6 +33,7 @@ public class ScreenClickEvent implements Listener {
         if(MakiDesktop.paused||MakiDesktop.loc==null||MakiDesktop.locEnd==null)return;
         Player player = event.getPlayer();
         if(player!=MakiDesktop.controller&&!player.isOp())return;
+        if(MakiDesktop.directControl&&player==MakiDesktop.controller)return;
         Action action = event.getAction();
 
         if ((action.equals(Action.RIGHT_CLICK_BLOCK)/*||action.equals(Action.LEFT_CLICK_BLOCK)*/)&&event.getHand()==EquipmentSlot.HAND) {
@@ -40,7 +42,7 @@ public class ScreenClickEvent implements Listener {
             Location bloc=block.getLocation();
             Location tloc=tblock.getLocation();
             if(bloc.getX()==tloc.getX()&&bloc.getY()==tloc.getY()&&bloc.getZ()==tloc.getZ()){
-                if(ClickOnScreen.clickedOnBlock(block,player,true))event.setCancelled(true);
+                if(ClickOnScreen.clickedOnBlock(block,player,true)){}//event.setCancelled(true);
             }
         }
     }
