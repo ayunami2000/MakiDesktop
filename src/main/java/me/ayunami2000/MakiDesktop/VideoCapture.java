@@ -31,7 +31,6 @@ class VideoCaptureVnc extends Thread {
     {
         if (img instanceof BufferedImage&&MakiDesktop.colorOrder[0]==0&&MakiDesktop.colorOrder[1]==1&&MakiDesktop.colorOrder[2]==2&&MakiDesktop.colorOrder[3]==3)
         {
-            System.out.println(1234);
             return (BufferedImage) img;
         }
 
