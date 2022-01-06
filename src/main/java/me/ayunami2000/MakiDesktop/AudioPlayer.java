@@ -40,8 +40,23 @@ public class AudioPlayer implements Runnable {
             Location scrLoc=new Location(scrWorld,(MakiDesktop.loc.getX()+MakiDesktop.locEnd.getX())/2.0,(MakiDesktop.loc.getY()+MakiDesktop.locEnd.getY())/2.0,(MakiDesktop.loc.getZ()+MakiDesktop.locEnd.getZ())/2.0);
             while (currUrl.equals(ConfigFile.getAudio())&&enabled&&!MakiDesktop.paused&&(line = reader.readLine()) != null) {
                 String[] audparts=line.split(",");
-                if(audparts.length==3) {
-                    scrWorld.playSound(scrLoc, sounds[Integer.parseInt(audparts[0])], Float.parseFloat(audparts[1]), Float.parseFloat(audparts[2]));
+                if(audparts.length==4) {
+                    Location localLoc=scrLoc.clone();
+                    float panning=Float.parseFloat(audparts[3]);
+                    if (MakiDesktop.locDir == 0) {
+                        //south
+                        localLoc.add(panning,0,0);
+                    } else if (MakiDesktop.locDir == 1) {
+                        //west
+                        localLoc.add(0,0,panning);
+                    } else if (MakiDesktop.locDir == 2) {
+                        //north
+                        localLoc.add(-panning,0,0);
+                    } else if (MakiDesktop.locDir == 3) {
+                        //east
+                        localLoc.add(0,0,-panning);
+                    }
+                    scrWorld.playSound(localLoc, sounds[Integer.parseInt(audparts[0])], Float.parseFloat(audparts[1]), Float.parseFloat(audparts[2]));
                 }
             }
             urlConnection.disconnect();
