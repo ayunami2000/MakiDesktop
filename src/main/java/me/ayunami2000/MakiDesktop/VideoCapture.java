@@ -55,6 +55,8 @@ class VideoCaptureVnc extends Thread {
 
         //config.setTargetFramesPerSecond(20);
 
+        config.setShared(true);
+
         config.setUsernameSupplier(() -> MakiDesktop.getUserPass()[0]);
         config.setPasswordSupplier(() -> MakiDesktop.getUserPass()[1]);
 

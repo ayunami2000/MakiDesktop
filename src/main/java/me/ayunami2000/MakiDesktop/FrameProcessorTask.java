@@ -60,6 +60,17 @@ class FrameProcessorTask extends BukkitRunnable {
           int green = ((int) frameData[pos++] & 0xff);
           int red = ((int) frameData[pos] & 0xff);
 
+          if(MakiDesktop.colorOrder[0]!=0&&MakiDesktop.colorOrder[1]!=1&&MakiDesktop.colorOrder[2]!=2) {
+            int[] oldRgb = new int[]{red, green, blue};
+            int[] newRgb = new int[]{0,0,0};
+            for (int i = 0; i < newRgb.length; i++) {
+              newRgb[i]=oldRgb[MakiDesktop.colorOrder[i]];
+            }
+            red=newRgb[0];
+            green=newRgb[1];
+            blue=newRgb[2];
+          }
+
           red = Math.max(Math.min(255, red + buf1[bufferIndex++]), 0);
           green = Math.max(Math.min(255, green + buf1[bufferIndex++]), 0);
           blue = Math.max(Math.min(255, blue + buf1[bufferIndex++]), 0);
@@ -95,6 +106,17 @@ class FrameProcessorTask extends BukkitRunnable {
           int blue = (int) frameData[pos++] & 0xff;
           int green = ((int) frameData[pos++] & 0xff);
           int red = ((int) frameData[pos] & 0xff);
+
+          if(MakiDesktop.colorOrder[0]!=0&&MakiDesktop.colorOrder[1]!=1&&MakiDesktop.colorOrder[2]!=2) {
+            int[] oldRgb = new int[]{red, green, blue};
+            int[] newRgb = new int[]{0,0,0};
+            for (int i = 0; i < newRgb.length; i++) {
+              newRgb[i]=oldRgb[MakiDesktop.colorOrder[i]];
+            }
+            red=newRgb[0];
+            green=newRgb[1];
+            blue=newRgb[2];
+          }
 
           red = Math.max(Math.min(255, red + buf1[bufferIndex--]), 0);
           green = Math.max(Math.min(255, green + buf1[bufferIndex--]), 0);
