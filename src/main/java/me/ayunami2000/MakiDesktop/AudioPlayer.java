@@ -1,9 +1,6 @@
 package me.ayunami2000.MakiDesktop;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
