@@ -43,7 +43,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
     public static Player controller = null;
     public static boolean alwaysMoveMouse = true;
     public static boolean directControl = false;
-    public static int[] colorOrder=new int[]{0,1,2};
+    public static int[] colorOrder=new int[]{0,1,2,3};
 
     public static AudioPlayer audioPlayer = new AudioPlayer();
 
@@ -310,11 +310,11 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
                         if(args[1].length()==3){
                             String[] splargs=args[1].split("");
                             for (int i = 0; i < splargs.length; i++) {
-                                colorOrder[i]=splargs[i].equalsIgnoreCase("g")?1:(splargs[i].equalsIgnoreCase("b")?2:0);
+                                colorOrder[i]=splargs[i].equalsIgnoreCase("g")?1:(splargs[i].equalsIgnoreCase("b")?2:(splargs[i].equalsIgnoreCase("a")?3:0));
                             }
                             sender.sendMessage("Color order has been set to "+colorOrder.toString()+"!");
                         }else{
-                            sender.sendMessage("Error: Expected RGB or another order of those!");
+                            sender.sendMessage("Error: Expected RGBA or another order of those!");
                         }
                     }
                     break;

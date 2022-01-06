@@ -39,6 +39,22 @@ class VideoCaptureVnc extends Thread {
         // Draw the image on to the buffered image
         Graphics2D bGr = bimage.createGraphics();
         bGr.drawImage(img, 0, 0, null);
+
+        if(MakiDesktop.colorOrder[0]!=0&&MakiDesktop.colorOrder[1]!=1&&MakiDesktop.colorOrder[2]!=2) {
+            for (int i = 0; i < bimage.getWidth(); i++) {
+                for (int j = 0; j < bimage.getHeight(); j++) {
+                    Color origColor=new Color(bimage.getRGB(i, j));
+
+                    int[] oldRgb = new int[]{origColor.getRed(), origColor.getGreen(), origColor.getBlue(), origColor.getAlpha()};
+                    int[] newRgb = new int[]{0,0,0,0};
+                    for (int r = 0; r < newRgb.length; r++) {
+                        newRgb[r]=oldRgb[MakiDesktop.colorOrder[r]];
+                    }
+                    bimage.setRGB(i, j, new Color(newRgb[0], newRgb[1], newRgb[2], newRgb[3]).getRGB());
+                }
+            }
+        }
+
         bGr.dispose();
 
         // Return the buffered image
