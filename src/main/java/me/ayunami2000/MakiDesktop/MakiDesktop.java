@@ -132,7 +132,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
     public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String alias, String[] args) {
         if (command.getName().equals("maki")) {
             if(args.length==0){
-                sender.sendMessage("Usage: /maki [direct|type|key|press|login|audio|ctrl|give|clear|toggle|loc|size|ip|delay]\n - direct: direct input for games like minecraft\n - type: type text\n - key: press key(s)\n - press: hold key(s) for duration in ms\n - login: Sets the VNC password or username:password (passwords with \":\" in them: prefix with \":\", usernames with \":\"...well...lmao trolled xd).\n - audio: Set audio URL for audio support.\n - ctrl: Take control of MakiDesktop.\n - give: Generates new maps and gives them to you.\n - clear: Clears all map data.\n - toggle: Toggles map playback.\n - loc: Sets the top left corner of the screen to the block you are looking at.\n - size: Sets or gets the current size value.\n - ip: Sets or gets the current VNC ip:port.\n - delay: Sets or gets the current delay value.");
+                sender.sendMessage("Usage: /maki [colororder|direct|type|key|press|login|audio|ctrl|give|clear|toggle|loc|size|ip|delay]\n - colororder: set image color order (default RGBA)\n - direct: direct input for games like minecraft\n - type: type text\n - key: press key(s)\n - press: hold key(s) for duration in ms\n - login: Sets the VNC password or username:password (passwords with \":\" in them: prefix with \":\", usernames with \":\"...well...lmao trolled xd).\n - audio: Set audio URL for audio support.\n - ctrl: Take control of MakiDesktop.\n - give: Generates new maps and gives them to you.\n - clear: Clears all map data.\n - toggle: Toggles map playback.\n - loc: Sets the top left corner of the screen to the block you are looking at.\n - size: Sets or gets the current size value.\n - ip: Sets or gets the current VNC ip:port.\n - delay: Sets or gets the current delay value.");
                 return true;
             }
             switch (args[0]) {
@@ -307,7 +307,7 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
                     if(args.length==1){
                         sender.sendMessage("Color order has been reset!");
                     }else{
-                        if(args[1].length()==3){
+                        if(args[1].length()==4){
                             String[] splargs=args[1].split("");
                             for (int i = 0; i < splargs.length; i++) {
                                 colorOrder[i]=splargs[i].equalsIgnoreCase("g")?1:(splargs[i].equalsIgnoreCase("b")?2:(splargs[i].equalsIgnoreCase("a")?3:0));

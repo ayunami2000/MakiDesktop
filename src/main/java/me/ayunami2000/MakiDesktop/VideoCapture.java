@@ -3,6 +3,7 @@ package me.ayunami2000.MakiDesktop;
 import com.shinyhut.vernacular.client.VernacularClient;
 import com.shinyhut.vernacular.client.VernacularConfig;
 import com.shinyhut.vernacular.client.rendering.ColorDepth;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 
 import java.awt.*;
@@ -28,8 +29,9 @@ class VideoCaptureVnc extends Thread {
 
     public static BufferedImage toBufferedImage(Image img)
     {
-        if (img instanceof BufferedImage)
+        if (img instanceof BufferedImage&&MakiDesktop.colorOrder[0]==0&&MakiDesktop.colorOrder[1]==1&&MakiDesktop.colorOrder[2]==2&&MakiDesktop.colorOrder[3]==3)
         {
+            System.out.println(1234);
             return (BufferedImage) img;
         }
 
@@ -40,12 +42,12 @@ class VideoCaptureVnc extends Thread {
         Graphics2D bGr = bimage.createGraphics();
         bGr.drawImage(img, 0, 0, null);
 
-        if(MakiDesktop.colorOrder[0]!=0&&MakiDesktop.colorOrder[1]!=1&&MakiDesktop.colorOrder[2]!=2) {
+        if(MakiDesktop.colorOrder[0]!=0||MakiDesktop.colorOrder[1]!=1||MakiDesktop.colorOrder[2]!=2||MakiDesktop.colorOrder[3]!=3) {
             for (int i = 0; i < bimage.getWidth(); i++) {
                 for (int j = 0; j < bimage.getHeight(); j++) {
                     Color origColor=new Color(bimage.getRGB(i, j));
-
                     int[] oldRgb = new int[]{origColor.getRed(), origColor.getGreen(), origColor.getBlue(), origColor.getAlpha()};
+
                     int[] newRgb = new int[]{0,0,0,0};
                     for (int r = 0; r < newRgb.length; r++) {
                         newRgb[r]=oldRgb[MakiDesktop.colorOrder[r]];
