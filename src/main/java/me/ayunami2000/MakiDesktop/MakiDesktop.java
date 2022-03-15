@@ -13,18 +13,14 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Mixer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.logging.Logger;
 
 public final class MakiDesktop extends JavaPlugin implements Listener {
@@ -46,6 +42,9 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
     public static int[] colorOrder=new int[]{0,1,2,3};
 
     public static AudioPlayer audioPlayer = new AudioPlayer();
+
+    public static List<BukkitTask> tasks = new ArrayList<>();
+    public static List<Integer> taskints = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -110,13 +109,13 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
         videoCapture.start();
 
         FrameProcessorTask frameProcessorTask = new FrameProcessorTask(mapSize, mapWidth);
-        frameProcessorTask.runTaskTimerAsynchronously(this, 0, 1);
+        tasks.add(frameProcessorTask.runTaskTimerAsynchronously(this, 0, 1));
         FramePacketSender framePacketSender =
             new FramePacketSender(this, frameProcessorTask.getFrameBuffers());
-        framePacketSender.runTaskTimerAsynchronously(this, 0, 1);
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, (Runnable) () -> {
+        tasks.add(framePacketSender.runTaskTimerAsynchronously(this, 0, 1));
+        taskints.add(getServer().getScheduler().scheduleSyncRepeatingTask(this, (Runnable) () -> {
             audioPlayer.resetReqs();
-        }, 0, 100);
+        }, 0, 100));
     }
 
     @Override
@@ -124,6 +123,8 @@ public final class MakiDesktop extends JavaPlugin implements Listener {
         logger.info("Disabling MakiDesktop!");
         this.saveConfig();
         videoCapture.cleanup();
+        for (BukkitTask task : tasks) task.cancel();
+        for (int task : taskints) getServer().getScheduler().cancelTask(task);
     }
 
 

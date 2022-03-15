@@ -64,6 +64,7 @@ class FramePacketSender extends BukkitRunnable implements Listener {
 
   @EventHandler
   public void onPlayerJoin(PlayerJoinEvent event) {
+    //do i REALLY need this to be added to the task list? disabled for now...
     new BukkitRunnable() {
       @Override
       public void run() {
@@ -75,8 +76,10 @@ class FramePacketSender extends BukkitRunnable implements Listener {
           }
         }
         sendToPlayer(event.getPlayer(), packets);
+        //todo: maybe remove from task list once we get here?
       }
     }.runTaskLater(plugin, 10);
+    //MakiDesktop.tasks.add(task);
   }
 
   private void sendToPlayer(Player player, List<PacketPlayOutMap> packets) {

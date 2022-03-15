@@ -3,7 +3,6 @@ package me.ayunami2000.MakiDesktop;
 import com.shinyhut.vernacular.client.VernacularClient;
 import com.shinyhut.vernacular.client.VernacularConfig;
 import com.shinyhut.vernacular.client.rendering.ColorDepth;
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 
 import java.awt.*;
@@ -112,7 +111,7 @@ class VideoCaptureVnc extends Thread {
                 client.stop();
                 client.start(ip, Integer.parseInt(port));
                 (new Thread(MakiDesktop.audioPlayer)).start();
-                while (!MakiDesktop.paused) {
+                while (this.running&&!MakiDesktop.paused) {
                     if(MakiDesktop.controller!=null){
                         if(!MakiDesktop.controller.isOnline()){
                             MakiDesktop.controller=null;
@@ -128,6 +127,7 @@ class VideoCaptureVnc extends Thread {
                     }
                 }
                 MakiDesktop.audioPlayer.stopIt();
+                if(!this.running)break;
                 client.stop();
             }
             do {
@@ -136,13 +136,14 @@ class VideoCaptureVnc extends Thread {
                     Thread.sleep(MakiDesktop.paused ? 1000 : ConfigFile.getDelay());
                 } catch (InterruptedException e) {
                 }
-            } while (MakiDesktop.paused);
+            } while (MakiDesktop.paused&&this.running);
         }
     }
 
     public void cleanup() {
         client.stop();
         running = false;
+        Thread.currentThread().interrupt();//will THIS work???????
     }
 
     public void clickMouse(double x,double y,int doClick,boolean drag){
